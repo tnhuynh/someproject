@@ -2,6 +2,7 @@ int i;
 int a;
 int b;
 int c; // Hello
+int d; // Hello again
 
 void setup() {
   // put your setup code here, to run once:
