@@ -1,12 +1,9 @@
-int i;
-int a;
-int b;
-int c; // Hello
-int d; // Hello again
-int e; // and again
-int f; // and again...
-int g; // finally worked
-int h; // phew :3
+
+
+#include <Servo.h>
+#include <Encoder.h>
+#include <Wire.h>
+#include <LiquidCrystal.h>
 
 void setup() {
   // put your setup code here, to run once:
