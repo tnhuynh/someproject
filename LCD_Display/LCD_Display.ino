@@ -36,6 +36,7 @@ String line1 = "Candle found";
 String line2 = "Extinguishing the candle";
 String line3 = "Fire has been put out";
 String line4 = "Finding my way back home. Wish me luck!";
+String line5 = "I'm beeeeccckkkk!!!";
 int lineIndex = 0;
 int line = 0;
 
@@ -49,7 +50,7 @@ void setup() {
 
 void loop() {
   lcd.setCursor(15, 0);
-  lineIndex = line % 5;
+  lineIndex = line % 6;
   switch (lineIndex) {
     case 0:
       lcd.print(line0);
@@ -65,6 +66,9 @@ void loop() {
       break;
     case 4:
       lcd.print(line4);
+      break;
+    case 5:
+      lcd.print(line5);
       break;
   }
   lcd.scrollDisplayLeft();
