@@ -8,8 +8,10 @@ https://docs.sublimegit.net/tutorial.html
 --------------------------------------
 
 **~~~/ Check List \~~~**
-_ Main file
-x LCD Display
-_ Navigation (to be further divided)
-_ FireSensor
-_ DriveSystem
+_ Main.ino 				( 1%  )
+_ LCD_Display.h 		( 80% )
+_ Fire_Sensors.h 		( 20% )
+_ Drive_Sensors.h 		( 10% )
+_ Drive_System.h 		( 1%  )
+_ Navigation_System.h 	( 10% )
+_ Fire_System.h 		( 1%  )

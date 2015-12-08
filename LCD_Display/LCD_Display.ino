@@ -41,7 +41,6 @@ int lineIndex = 0;
 int line = 0;
 
 void setup() {
-  Serial.begin(9600);
   lcd.begin(LCD_W, LCD_H);
   lcd.setCursor(0, 0);
   pinMode(INTERRUPT_PIN, INPUT_PULLUP);
@@ -73,8 +72,6 @@ void loop() {
   }
   lcd.scrollDisplayLeft();
   delay(STD_DELAY);
-  Serial.println(lineIndex);
-  
 }
 
 void switchLine()
