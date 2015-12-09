@@ -1,9 +1,11 @@
 
 
-// #include <Servo.h>
-// #include <Encoder.h>
-// #include <Wire.h>
-// #include <LiquidCrystal.h>
+#include <Servo.h>
+#include <Encoder.h>
+#include <Wire.h>
+#include <LiquidCrystal.h>
+
+int a;
 
 void setup() {	
   // put your setup code here, to run once:
