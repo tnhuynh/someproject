@@ -9,9 +9,9 @@ void setup() {
 }
 
 void loop() {
-//  Serial.print("red sensor: ");
-//  Serial.print(analogRead(red));
-//  Serial.print("\t");
-//  Serial.print("black sensor: ");
+  Serial.print("red sensor: ");
+  Serial.print(analogRead(red));
+  Serial.print("\t");
+  Serial.print("black sensor: ");
   Serial.println(analogRead(black));
 }

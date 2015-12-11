@@ -1,8 +1,8 @@
 
 #include <NewPing.h>
 
-const int triggerPin = 23; // digital pin 23
-const int echoPin = 22; // digital pin 22
+const int triggerPin = 22; // digital pin 22
+const int echoPin = 23; // digital pin 23
 int d;
 
 NewPing sonar(triggerPin, echoPin, 200);
