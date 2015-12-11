@@ -8,15 +8,6 @@ https://docs.sublimegit.net/tutorial.html
 --------------------------------------
 
 **~~~/ Check List \~~~**
-<<<<<<< HEAD
-_ Main.ino 				( 1%  )
-_ LCD_Display.h 		( 80% )
-_ Fire_Sensors.h 		( 20% )
-_ Drive_Sensors.h 		( 10% )
-_ Drive_System.h 		( 1%  )
-_ Navigation_System.h 	( 10% )
-_ Fire_System.h 		( 1%  )
-=======
 _ RBE2002_B15_Team9_Main.ino 	( 20% ) ---	[==________]
 _ AAAAAA.h 						( 60% ) --	[======____]
 _ Drive_System.h 				( 20% )	---	[==________]
@@ -27,4 +18,3 @@ _ IR.h 							( 30% )	---	[===_______]
 _ LCD_Display.h 				( 90% )	---	[=========_]
 _ Navigation_System.h 			( 20% )	---	[==________]
 _ Sonars.h 						( 90% )	--	[=========_]
->>>>>>> 34cdb2c4bfc87e4e7e3c3b7cf5990474b6a44436
