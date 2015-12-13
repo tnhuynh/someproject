@@ -1,4 +1,4 @@
-
+// IMU.h
 
 // Uncomment the below line to use this axis definition:
 // X axis pointing forward
@@ -22,9 +22,6 @@ int SENSOR_SIGN[9] = {1, 1, 1, -1, -1, -1, 1, 1, 1}; //Correct directions x,y,z 
 // LSM303 accelerometer: 8 g sensitivity
 // 3.9 mg/digit; 1 g = 256
 #define GRAVITY 256  //this equivalent to 1G in the raw data coming from the accelerometer 
-
-#define ToRad(x) ((x)*0.01745329252)  // *pi/180
-#define ToDeg(x) ((x)*57.2957795131)  // *180/pi
 
 // L3G4200D gyro: 2000 dps full scale
 // 70 mdps/digit; 1 dps = 0.07
@@ -125,6 +122,10 @@ float Temporary_Matrix[3][3] = {
     0, 0, 0
   }
 };
+
+float heading;
+int x_coor;
+int y_coor;
 
 L3G gyro;
 LSM303 compass;
@@ -229,8 +230,30 @@ void IMUInit() {
 }
 
 void mapInit() {
-  xCoor = 0;
-  yCoor = 0;
+  x_coor = 0;
+  y_coor = 0;
   heading = 0;
+}
+
+void IMURead() {
+  int interval = millis() - timer;
+  if (interval > 19) {
+    G_Dt = interval / 1000.0;
+    timer = millis();
+
+    Read_Gyro();
+
+    if (robotState == TURN) {
+      heading += gyro_z * G_Dt * 0.07;
+    }
+  }
+}
+
+void sumOfVectors() {
+  int displacement = encoderWAvg() / TICKS_PER_INCH;
+  float angDisplacement = ToRad(heading);
+
+  x_coor += displacement * cos(angDisplacement);
+  y_coor += displacement * sin(angDisplacement);
 }
 

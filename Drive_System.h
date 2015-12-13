@@ -1,5 +1,6 @@
+// Drive_System.h
 
-
+#define TICKS_TO_TURN 305
 #define LIMIT         20
 
 #define MotorLeft     4
@@ -7,6 +8,9 @@
 #define MotorBlack    8
 #define MotorRed      10
 #define Balloon       11
+
+int turnTicks;
+
 
 void servoInit() {
   motorLeft.attach(MotorLeft);
@@ -36,38 +40,88 @@ void drive(int x, int y) {
   motorRight.writeMicroseconds(map(y, -100, 100, 2000, 1000));
 }
 
-//--------------//
+void readyTurnDisconnect() {
+  float distance_error = asin((distance_end - distance_init) / encoderDistanceInit());
+  float ticks_error = DEG_TICKS * ToDeg(distance_error);
 
-int currentSpeed;
-int desiredSpeed;
-int lastLeftSpeed;
-int lastRightSpeed;
-float endAngle;
-float botAngle;
-
-void servoEnd() {
-//  terminate();
-  currentSpeed = desiredSpeed;
-  lastLeftSpeed = 0;
-  lastRightSpeed = 0;
-  endAngle = botAngle;
+  if (distance_init > FRONT_FAR) ticks_error = 0;
+  if (hugLeft) {
+    turnTicks = -TICKS_TO_TURN;
+    turnTicks += ticks_error;
+  } else {
+    turnTicks = TICKS_TO_TURN;
+    turnTicks += -ticks_error;
+  }
 }
 
-int leftSpeed;
-int rightSpeed;
-long currentEncoderLeft;
-long currentEncoderRight;
+int error_accum;
 
-void manualDriveSpeed(int left, int right) {
-  if ((left != lastLeftSpeed) || (right != lastRightSpeed)) {
-    leftSpeed = left;
-    rightSpeed = right;
-    lastLeftSpeed = left;
-    lastRightSpeed = right;
-  } 
-//  else if (wait(100) == true) {
-//    currentEncoderLeft = encoderLeft.read();
-//    currentEncoderRight = encoderRight.read();
-//  }
+void readyTurnCorner() {
+  irFinalDistance();
+  float distance_error = asin((distance_end - distance_init) / encoderDistance());
+  float ticks_error = DEG_TICKS * ToDeg(distance_error);
+
+  if (distance_init > FRONT_FAR) ticks_error = 0;
+  if (hugLeft) {
+    turnTicks = TICKS_TO_TURN;
+    turnTicks += -ticks_error;
+  } else {
+    turnTicks = -TICKS_TO_TURN;
+    turnTicks += ticks_error;
+  }
+  error_accum = 0;
 }
 
+boolean turnComplete() {
+  int pos_left = encoderLeft.read();
+  int pos_right = encoderRight.read();
+
+  if (abs(pos_left - turnTicks) < 10 &&
+      abs(pos_right + turnTicks) < 10) {
+        wallDisconnects = false;
+        encDiff = 0;
+        return true;
+      }
+
+  float speed_wheel;
+  if (turnTicks > 0) speed_wheel = 1.5;
+  else speed_wheel = -1.5;
+
+  int speed_left = speed_wheel * (abs(turnTicks) - abs(pos_left));
+  int speed_right = speed_wheel * (abs(turnTicks) - abs(pos_right));
+
+  drive (speed_left, speed_right);
+  return false;
+}
+
+int storedEncoderWAvg;
+
+boolean goBackwards() {
+  int error_encoder = encoderLeft.read() - encoderRight.read();
+
+  if ((encoderWAvg() - storedEncoderWAvg) < -80) return true;
+
+  drive(-50 - K * error_encoder, -50 + K * error_encoder);
+  return false;
+}
+
+
+boolean goForwards() {
+  if (fireFound && irSideDistance() < 50) return false;
+
+  int error_ir = IR_Left - IR_Right;
+  if (abs(error_ir) > 10) error_ir = 0;
+  error_ir *= 2;
+
+  if (IR_Right > prevIR_Right)      error_accum += -30;
+  else if (IR_Right < prevIR_Right) error_accum += 30;
+  if (IR_Left > prevIR_Left)        error_accum += 30;
+  else if (IR_Left < prevIR_Left)   error_accum += -30;
+
+  int error_encoder = encoderLeft.read() - encoderRight.read();
+  int error_total = error_encoder + error_accum;
+
+  drive(50 - K * error_total - error_ir,
+        50 + K * error_total + error_ir);
+  return true;
+}

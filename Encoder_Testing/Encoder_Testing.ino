@@ -9,7 +9,7 @@
 
 #include <Encoder.h>
 
-Encoder myEnc(5, 6);
+Encoder myEnc(22, 23);
 
 long oldPosition  = -999;
 long rev = 0;

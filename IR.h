@@ -1,20 +1,28 @@
+// IR.h
 
-
-#define SIDE_CLOSE   10
 #define SIDE_FAR     24
+#define SIDE_CLOSE   10
 
-float distance_init;
-float distance_final;
-float distance_end;
-float prevIRLeft;
-float prevIRRight;
-boolean wallDisconnects = false;
-int encDiff;
-boolean isFirstDetect = false;
+void irReadingInit() {
+  long time_init = millis();
+  while (millis() - initTime < 3000) {
+    prevIR_Left = IR_Left;
+    prevIR_Right = IR_Right;
+
+    IR_Left = irLeft.distance();
+    IR_Right = irRight.distance();
+  }
+}
 
 int irSideDistance() {
-  if (hugLeft) return irLeft.distance();
-  else return irRight.distance();
+  if (hugLeft) {
+    IR_Left = irLeft.distance();
+    return IR_Left;
+  }
+  else {
+    IR_Right = irRight.distance();
+    return IR_Right;
+  }
 }
 
 boolean checkSide() {
@@ -30,4 +38,17 @@ boolean checkSide() {
   }
 }
 
+
+void setDirection() {
+  hugLeft = IR_Left < IR_Right;
+}
+
+void irInitDistance() {
+  distance_init = irSideDistance();
+  if (distance_init > FRONT_CLOSE) isFirstDetect = true;
+}
+
+void irFinalDistance() {
+  distance_final = irSideDistance();
+}
 

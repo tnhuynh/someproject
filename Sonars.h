@@ -1,9 +1,6 @@
 
 
 
-#define MAX_DISTANCE    200   // Maximum distance (in cm) to ping.
-#define PING_INTERVAL   33    // Milliseconds between sensor pings (29ms is about the min to avoid cross-sensor echo).
-#define FRONT_CLOSE 15
 
 unsigned long pingTimer;      // Holds the times when the next ping should happen for each sensor.
 unsigned long cm;             // Where the ping distances are stored.
@@ -18,7 +15,7 @@ void echoCheck() {            // If ping received, set the sensor distance to ar
   }
 }
 
-void oneSensorCycle() {       // Sensor ping cycle complete, do something with the results.
+void sonarScan() {       // Sensor ping cycle complete, do something with the results.
   if (millis() >= pingTimer) {
     pingTimer += PING_INTERVAL;
     sonarFront.timer_stop();
@@ -35,4 +32,9 @@ boolean checkFront() {
   return false;
 }
 
-
+void sonarReadingInit() {
+  long time_init = millis();
+  while (millis() - time_init < 3000) {
+    sonarScan();
+  }
+}

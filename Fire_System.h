@@ -1,11 +1,10 @@
+// Fire_System.h
 
 #define RedSensor A2
 #define BlackSensor A3
 
 #define Fire_Limit 900
 
-boolean fiiireee = true;
-boolean fireFound;
 int redAngle;
 
 boolean fireCheck() {
@@ -56,7 +55,6 @@ boolean fireSearch() {
   }
 }
 
-boolean hugLeft;
 
 void setMotorRed() {
   if(hugLeft) motorRed.write(170);

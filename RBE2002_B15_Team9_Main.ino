@@ -20,6 +20,7 @@
 #include "Encoders.h"
 #include "Fire_System.h"
 #include "IMU.h"
+#include "IR.h"
 #include "LCD_Display.h"
 //#include "Navigation_System.h"
 #include "Sonars.h"
@@ -38,6 +39,13 @@ void setup() {
 
   Serial.println("\t");
   Serial.println("...complete");
+
+  sonarReadingInit();
+  irReadingInit();
+  setDirection();
+  setMotorRed();
+
+  switchState(FORWARD);
 }
 
 void loop() {

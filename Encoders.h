@@ -1,5 +1,4 @@
 
-#define TICKS_PER_INCH  41.67 // wheel's diamater, pi, 360 encoder ticks
 
 void encoderInit() {
   pinMode(22, INPUT_PULLUP);
