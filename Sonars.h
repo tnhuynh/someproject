@@ -1,6 +1,6 @@
+// Sonars.h
 
-
-
+/*----------------------------------------------*/
 
 unsigned long pingTimer;      // Holds the times when the next ping should happen for each sensor.
 unsigned long cm;             // Where the ping distances are stored.

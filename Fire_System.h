@@ -1,5 +1,7 @@
 // Fire_System.h
 
+/*----------------------------------------------*/
+
 #define RedSensor A2
 #define BlackSensor A3
 

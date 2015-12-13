@@ -1,16 +1,8 @@
 // Drive_System.h
 
-#define TICKS_TO_TURN 305
-#define LIMIT         20
-
-#define MotorLeft     4
-#define MotorRight    5
-#define MotorBlack    8
-#define MotorRed      10
-#define Balloon       11
+/*----------------------------------------------*/
 
 int turnTicks;
-
 
 void servoInit() {
   motorLeft.attach(MotorLeft);

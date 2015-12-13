@@ -1,15 +1,11 @@
+//AAAAAA.h
+
+/*----------------------------------------------*/
 
 #define ENCODER_USE_INTERRUPTS
 
-#define IRLeft A0
-#define IRRight A1
-
-#define SonarTrigger 22 // INPUT pin
-#define SonarEcho 23 // OUTPUT pin
-
 #define LCD_W 16
 #define LCD_H 2
-
 
 Servo motorLeft, motorRight, motorBlack, motorRed, balloon;
 Encoder encoderLeft(22, 23);
@@ -32,6 +28,15 @@ String line5 = "Beeeccckkk";
 boolean hugLeft;
 
 // Drive_System.h
+#define MotorLeft     4
+#define MotorRight    5
+#define MotorBlack    8
+#define MotorRed      10
+#define Balloon       11
+
+#define TICKS_TO_TURN 305
+#define LIMIT         20
+
 void drive(int x, int y);
 
 // Encoders.h
@@ -56,6 +61,9 @@ void setMotorRed();
 void sumOfVectors();
 
 // IR.h
+#define IRLeft A0
+#define IRRight A1
+
 float distance_init;
 float distance_final;
 float distance_end;
@@ -85,6 +93,9 @@ void irFinalDistance();
 #define PING_INTERVAL   33    // Milliseconds between sensor pings (29ms is about the min to avoid cross-sensor echo).
 #define FRONT_FAR       25
 #define FRONT_CLOSE     15
+
+#define SonarTrigger 22 // INPUT pin
+#define SonarEcho 23 // OUTPUT pin
 
 typedef enum RobotState {
   FORWARD,

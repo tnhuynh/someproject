@@ -1,3 +1,6 @@
+// LCD_Display.h
+
+/*----------------------------------------------*/
 
 void lcdInit() {
   lcd.begin(LCD_W, LCD_H);
